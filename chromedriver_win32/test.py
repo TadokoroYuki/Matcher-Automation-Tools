@@ -7,18 +7,18 @@ driver.get('https://matcher.jp/')
 elm_click = driver.find_element(By.XPATH, '//*[@id="header"]/div/div[1]/a')
 elm_click.click()
 time.sleep(3)
-form = driver.find_element(By.ID, 'smsr-SignInForm_Telephone').send_keys('09018539843')
-form = driver.find_element(By.ID, 'smsr-SignInForm_Password').send_keys('Mokawest13')
+form = driver.find_element(By.ID, 'smsr-SignInForm_Telephone').send_keys('00000000000')#phone number
+form = driver.find_element(By.ID, 'smsr-SignInForm_Password').send_keys('***')#pass
 login_click = driver.find_element(By.XPATH, '//*[@id="signin"]/button')
 login_click.click()
 time.sleep(3)
 plan_click = driver.find_element(By.XPATH, '//*[@id="icons"]/a[4]')
 plan_click.click()
 time.sleep(3)
-form = driver.find_element(By.XPATH, '//*[@id="plan_title"]').send_keys('aaaaa')
-form = driver.find_element(By.XPATH, '//*[@id="plan_comment"]').send_keys('aaa')
+form = driver.find_element(By.XPATH, '//*[@id="plan_title"]').send_keys('***')#title
+form = driver.find_element(By.XPATH, '//*[@id="plan_comment"]').send_keys('***')#comment
 img_click = driver.find_element(By.XPATH, '//*[@id="new_plan"]/div[3]/div[1]/div[2]/div[1]/label').click()
-form = driver.find_element(By.XPATH, '//*[@id="plan_place_detail"]').send_keys('aaa')
+form = driver.find_element(By.XPATH, '//*[@id="plan_place_detail"]').send_keys('***')#detail station
 create_click = driver.find_element(By.XPATH, '//*[@id="new_plan"]/button').click()
 time.sleep(10)
 mypage_click = driver.find_element(By.XPATH, '//*[@id="h_mypage_link"]')
