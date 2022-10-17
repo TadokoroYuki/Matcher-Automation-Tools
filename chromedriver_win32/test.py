@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 import datetime
+import requests
 
 
 driver = webdriver.Chrome()#Chomeを開く
@@ -11,8 +12,8 @@ for i in range(10):
  elm_click.click()
  time.sleep(3)
  
- form = driver.find_element(By.ID, 'smsr-SignInForm_Telephone').send_keys('09018539843')#phone number
- form = driver.find_element(By.ID, 'smsr-SignInForm_Password').send_keys('Mokawest13')#pass
+ form = driver.find_element(By.ID, 'smsr-SignInForm_Telephone').send_keys('00000000000')#phone number
+ form = driver.find_element(By.ID, 'smsr-SignInForm_Password').send_keys('***')#pass
  login_click = driver.find_element(By.XPATH, '//*[@id="signin"]/button')
  login_click.click() 
  time.sleep(3)
@@ -44,10 +45,16 @@ for i in range(10):
  logout = driver.find_element(By.XPATH, '//*[@id="footer_list"]/li[7]/a')#logout
  logout.click()
  date = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
- f = open('record_time.txt', 'a')
- f.write(date)
- f.write('\n')
- f.close()
+ line_notify_token = 'LINEアクセストークン'
+ line_notify_api = 'https://notify-api.line.me/api/notify'
+ headers = {'Authorization': f'Bearer {line_notify_token}'}
+ data = {'message': f'message: {date}'}
+ requests.post(line_notify_api, headers = headers, data = data)
+
+
+
+
+#田所　lineトークン　gXLvjTCaxsgSdGIf8XlcLv7P1c32CDtfzdnqiKEif4a　悪用しないでくださいWW
 
 
 
