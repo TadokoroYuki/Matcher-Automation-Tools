@@ -1,29 +1,59 @@
-# browser_auto_foods.py
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
+import datetime
+import requests
 
-chrome = webdriver.Chrome()
 
-location = input("場所入力：")
-favorite_foods = ["カレー", "ラーメン", "チャーハン", "とんかつ", "お好み焼き"]
+driver = webdriver.Chrome()#Chomeを開く
+driver.get('https://matcher.jp/')#matcherを開く
+for i in range(10):
+ elm_click = driver.find_element(By.XPATH, '//*[@id="header"]/div/div[1]/a')#login画面を開く
+ elm_click.click()
+ time.sleep(3)
+ 
+ form = driver.find_element(By.ID, 'smsr-SignInForm_Telephone').send_keys('00000000000')#phone number
+ form = driver.find_element(By.ID, 'smsr-SignInForm_Password').send_keys('***')#pass
+ login_click = driver.find_element(By.XPATH, '//*[@id="signin"]/button')
+ login_click.click() 
+ time.sleep(3)
 
-for i, food in enumerate(favorite_foods):
-    if i > 0:
-        # 新しいタブ
-        chrome.execute_script("window.open('','_blank');")
-        chrome.switch_to.window(chrome.window_handles[i])
+ plan_click = driver.find_element(By.XPATH, '//*[@id="icons"]/a[4]')#新規プラン作成画面
+ plan_click.click()
+ time.sleep(3)
+ 
+ form = driver.find_element(By.XPATH, '//*[@id="plan_title"]').send_keys('***')#title
+ form = driver.find_element(By.XPATH, '//*[@id="plan_comment"]').send_keys('***')#comment
+ img_click = driver.find_element(By.XPATH, '//*[@id="new_plan"]/div[3]/div[1]/div[2]/div[1]/label').click()
+ form = driver.find_element(By.XPATH, '//*[@id="plan_place_detail"]').send_keys('***')#detail station
+ create_click = driver.find_element(By.XPATH, '//*[@id="new_plan"]/button').click()
+ time.sleep(10)
 
-    # グーグルを開く
-    chrome.get("https://www.google.co.jp")
+ mypage_click = driver.find_element(By.XPATH, '//*[@id="h_mypage_link"]')#mypageへ
+ mypage_click.click()
+ time.sleep(3)
+ 
+ edit = driver.find_element(By.XPATH, '//*[@id="plan"]/div/div[1]/div/div[2]/div/div/span[1]/button')
+ edit.click()
+ time.sleep(3)
 
-    # 検索ワード入力
-    search_box = chrome.find_element_by_name("q")
-    search_words = location, food
-    search_box.send_keys(" ".join(search_words))
+ delete = driver.find_element(By.XPATH, '//*[@id="plan"]/div/div[3]/div/div/div[2]/div/div[1]/div/div/a/span[2]')#planを削除
+ delete.click()
+ save = driver.find_element(By.XPATH, '//*[@id="plan"]/div/div[1]/div/div[2]/div/div/span[2]/button[2]')
+ save.click()
 
-    # 検索実行
-    search_box.send_keys(Keys.RETURN)
-    print(chrome.title)
+ logout = driver.find_element(By.XPATH, '//*[@id="footer_list"]/li[7]/a')#logout
+ logout.click()
+ date = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+ line_notify_token = 'LINEアクセストークン'
+ line_notify_api = 'https://notify-api.line.me/api/notify'
+ headers = {'Authorization': f'Bearer {line_notify_token}'}
+ data = {'message': f'message: {date}'}
+ requests.post(line_notify_api, headers = headers, data = data)
 
-# 先頭のタブに戻る
-chrome.switch_to.window(chrome.window_handles[0])
+
+
+
+
+
+
