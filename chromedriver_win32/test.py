@@ -54,7 +54,6 @@ for i in range(10):
 
 
 
-#田所　lineトークン　gXLvjTCaxsgSdGIf8XlcLv7P1c32CDtfzdnqiKEif4a　悪用しないでくださいWW
 
 
 
