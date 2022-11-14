@@ -6,7 +6,9 @@ import requests
 
 
 driver = webdriver.Chrome()#Chomeを開く
+
 driver.get('https://matcher.jp/')#matcherを開く
+
 for i in range(10):
  elm_click = driver.find_element(By.XPATH, '//*[@id="header"]/div/div[1]/a')#login画面を開く
  elm_click.click()
@@ -33,17 +35,18 @@ for i in range(10):
  mypage_click.click()
  time.sleep(3)
  
- edit = driver.find_element(By.XPATH, '//*[@id="plan"]/div/div[1]/div/div[2]/div/div/span[1]/button')
+ edit = driver.find_element(By.XPATH, '//*[@id="mypage"]/div/div/div[1]/div/div[7]/div[1]/div[2]/button')
  edit.click()
  time.sleep(3)
 
- delete = driver.find_element(By.XPATH, '//*[@id="plan"]/div/div[3]/div/div/div[2]/div/div[1]/div/div/a/span[2]')#planを削除
+ delete = driver.find_element(By.XPATH, '//*[@id="mypage"]/div/div/div[1]/div/div[7]/div[2]/div/div/div/div/div[1]/div[2]/div[1]')#planを削除
  delete.click()
- save = driver.find_element(By.XPATH, '//*[@id="plan"]/div/div[1]/div/div[2]/div/div/span[2]/button[2]')
+ save = driver.find_element(By.XPATH, '//*[@id="mypage"]/div/div/div[1]/div/div[7]/div[1]/div[2]/button[2]')
  save.click()
 
- logout = driver.find_element(By.XPATH, '//*[@id="footer_list"]/li[7]/a')#logout
+ logout = driver.find_element(By.XPATH, '//*[@id="footer_list"]/li[7]')#logout
  logout.click()
+ 
  date = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
  line_notify_token = 'LINEアクセストークン'
  line_notify_api = 'https://notify-api.line.me/api/notify'
