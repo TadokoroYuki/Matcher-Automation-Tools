@@ -1,6 +1,6 @@
+from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
 import datetime
 import requests
 import schedule
@@ -20,32 +20,32 @@ def job(id, pas):
   for i in range(10):
    elm_click = driver.find_element(By.XPATH, '//*[@id="header"]/div/div[1]/a')#login画面を開く
    elm_click.click()
-   time.sleep(3)
+   sleep(3)
    
    form = driver.find_element(By.ID, 'smsr-SignInForm_Telephone').send_keys(id)#phone number
    form = driver.find_element(By.ID, 'smsr-SignInForm_Password').send_keys(pas)#pass
    login_click = driver.find_element(By.XPATH, '//*[@id="signin"]/button')
    login_click.click() 
-   time.sleep(3)
+   sleep(3)
   
    plan_click = driver.find_element(By.XPATH, '//*[@id="icons"]/a[4]')#新規プラン作成画面
    plan_click.click()
-   time.sleep(3)
+   sleep(3)
    
    form = driver.find_element(By.XPATH, '//*[@id="plan_title"]').send_keys('***')#title
    form = driver.find_element(By.XPATH, '//*[@id="plan_comment"]').send_keys('***')#comment
    img_click = driver.find_element(By.XPATH, '//*[@id="new_plan"]/div[3]/div[1]/div[2]/div[1]/label').click()
    form = driver.find_element(By.XPATH, '//*[@id="plan_place_detail"]').send_keys('***')#detail station
    create_click = driver.find_element(By.XPATH, '//*[@id="new_plan"]/button').click()
-   time.sleep(10)
+   sleep(10)
   
    mypage_click = driver.find_element(By.XPATH, '//*[@id="h_mypage_link"]')#mypageへ
    mypage_click.click()
-   time.sleep(3)
+   sleep(3)
    
    edit = driver.find_element(By.XPATH, '//*[@id="mypage"]/div/div/div[1]/div/div[7]/div[1]/div[2]/button')
    edit.click()
-   time.sleep(3)
+   sleep(3)
   
    delete = driver.find_element(By.XPATH, '//*[@id="mypage"]/div/div/div[1]/div/div[7]/div[2]/div/div/div/div/div[1]/div[2]/div[1]')#planを削除
    delete.click()
@@ -63,32 +63,32 @@ def job(id, pas):
   for i in range(10):
    elm_click = driver.find_element(By.XPATH, '//*[@id="header"]/div/div[1]/a')#login画面を開く
    elm_click.click()
-   time.sleep(3)
+   sleep(3)
    
    form = driver.find_element(By.ID, 'smsr-SignInForm_Telephone').send_keys(id)#phone number
    form = driver.find_element(By.ID, 'smsr-SignInForm_Password').send_keys(pas)#pass
    login_click = driver.find_element(By.XPATH, '//*[@id="signin"]/button')
    login_click.click() 
-   time.sleep(3)
+   sleep(3)
   
    plan_click = driver.find_element(By.XPATH, '//*[@id="icons"]/a[4]')#新規プラン作成画面
    plan_click.click()
-   time.sleep(3)
+   sleep(3)
   
    form = driver.find_element(By.XPATH, '//*[@id="plan_title"]').send_keys('***')#title
    form = driver.find_element(By.XPATH, '//*[@id="plan_comment"]').send_keys('***')#comment
    img_click = driver.find_element(By.XPATH, '//*[@id="new_plan"]/div[3]/div[1]/div[2]/div[1]/label').click()
    form = driver.find_element(By.XPATH, '//*[@id="plan_place_detail"]').send_keys('***')#detail station
    create_click = driver.find_element(By.XPATH, '//*[@id="new_plan"]/button').click()
-   time.sleep(10)
+   sleep(10)
   
    mypage_click = driver.find_element(By.XPATH, '//*[@id="h_mypage_link"]')#mypageへ
    mypage_click.click()
-   time.sleep(3)
+   sleep(3)
    
    edit = driver.find_element(By.XPATH, '//*[@id="mypage"]/div/div/div[1]/div/div[7]/div[1]/div[2]/button')
    edit.click()
-   time.sleep(3)
+   sleep(3)
   
    delete = driver.find_element(By.XPATH, '//*[@id="mypage"]/div/div/div[1]/div/div[7]/div[2]/div/div/div/div/div[1]/div[2]/div[1]')#planを削除
    delete.click()
@@ -107,7 +107,12 @@ def job(id, pas):
 
 
 def timer(start, id, pas):
- schedule.every().day.at(start).do(job(id, pas))
+ 
+ schedule.every().day.at(start).do(job, id=id, pas=pas)
+
+ while True:
+    schedule.run_pending()
+    sleep(1)
 
 
 
